@@ -1,0 +1,67 @@
+
+
+
+.mainSection{
+	
+}
+
+
+
+@media (max-width: 767px) {
+
+	section {
+		padding-top: 20px;
+	}
+
+}
+
+@media (max-width: 979px) and (min-width: 768px) {
+
+	.index .navbar {
+		margin-bottom: 0;
+	}
+
+	section {
+		padding-top: 20px;
+	}
+
+	.thumbnail .btn {
+		padding: 6px 10px;
+		font-size: 14px;
+	}
+}
+
+section {
+	margin-top: 60px;
+	padding-top: 100px;
+}
+
+.imgSizeDiv {
+	padding:  10px 0;
+	white-space: nowrap;
+}
+
+.imgSizeDiv input{
+	width: 30px;
+}
+
+.imgSizeLabel{
+	font-size: 12px;
+	font-weight: bold;
+	vertical-align: bottom;
+	padding-right: 10px;
+	font-family: 'Telex', sans-serif;
+	color: #317eac;
+	text-rendering: optimizelegibility;
+	white-space: nowrap;
+}
+
+.rf-insl-trc {
+	outline: 0;
+}
+
+
+
+
+
+

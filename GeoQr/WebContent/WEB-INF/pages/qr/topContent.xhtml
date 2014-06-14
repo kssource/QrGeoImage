@@ -1,0 +1,139 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:imgmap="http://java.sun.com/jsf/composite/comps">
+
+
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="brand" >#{msg.appName}</a>
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="container">
+
+		<section class="mainSection">
+			<div class="row">
+
+				<div class="span6">
+					<div class="well">
+						<h5>#{msg.mapTopLabel}</h5>
+
+
+						<div class="form-search">
+							<input id="addressInput" type="text" class="input-xlarge search-query" />
+							<button type="submit" class="btn"
+								onclick="mapHandler.searchAddress()"
+							>#{msg.btnSearch}</button>
+
+						</div>
+
+						<div style="margin-top: 10px;">
+							<imgmap:img_gmap />
+						</div>
+
+
+					</div>
+				</div>
+
+				<div class="span6">
+
+					<div style="width: 100%">
+
+						<h:form prependId="false">
+
+
+							<h:inputHidden  value="#{qcodeBean.latit}" id="hidenLat" />
+							<h:inputHidden value="#{qcodeBean.longit}" id="hidenLng"/>
+							<h:inputHidden value="#{qcodeBean.zoom}" id="hidenZoom"/>
+													
+
+							<a4j:commandButton  value="#{msg.btnGenerate}" styleClass="btn btn-primary"
+								render="outQrImg" execute="@form"
+								onclick="mapHandler.actionCenterOnMarker()"
+							>
+							</a4j:commandButton>
+
+							<h:commandButton  value="#{msg.btnDownload}" 
+								styleClass="btn btn-success "
+								action="#{qcodeBean.downloadAction()}"
+								onclick="mapHandler.updateMapAndImage()"
+								style="margin-left: 10px;"	
+							>
+							</h:commandButton>
+
+							<a4j:jsFunction name="rerenderOutputImg" render="outQrImg"
+								execute="@form" 
+							/>
+
+							<div class="imgSizeDiv">
+								<rich:inputNumberSlider value="#{qcodeBean.imageSize}" 
+									minValue="10" maxValue="1000" 
+									step="10" showArrows="true" showTooltip="false" >
+									
+									<a4j:ajax event="change" execute="@form" render="outQrImg" />
+								</rich:inputNumberSlider>								
+								<span class="imgSizeLabel" >#{msg.imageSize}</span>
+							</div>
+							<div class="imgSizeDiv">
+								<rich:inputNumberSlider value="#{qcodeBean.circleRadius}" 
+									minValue="10" maxValue="300" 
+									step="10" showArrows="true" showTooltip="false" >
+									<a4j:ajax event="change" execute="@form" render="outQrImg" />
+								</rich:inputNumberSlider>							
+								<span class="imgSizeLabel" >#{msg.circleRadius}</span>
+							</div>
+							<div class="imgSizeDiv">
+								<rich:inputNumberSlider value="#{qcodeBean.qrImgTransparenz}" 
+									minValue="0" maxValue="100" 
+									step="10" showArrows="true" showTooltip="false" >
+									<a4j:ajax event="change" execute="@form" render="outQrImg" />
+								</rich:inputNumberSlider>							
+								<span class="imgSizeLabel" >#{msg.qrOpacue}</span>
+							</div>
+
+							
+							<div style="padding: 10px 0; text-align: center;" >
+								<div class="span4">
+									<a4j:outputPanel ajaxRendered="true">
+								        <a4j:mediaOutput element="img" cacheable="false" session="true" id="outQrImg" 
+								        	createContent="#{qcodeBean.paintImage}" value="#{qcodeBean.dummyData}" 
+								        	mimeType="image/png" alt="img" />
+									</a4j:outputPanel>
+								</div>
+							
+							</div>					
+
+						</h:form>
+						
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+
+
+
+		<br /> 
+		<!-- Footer
+      ================================================== -->
+		<hr />
+		<footer id="footer">
+			<p class="pull-right">
+				<a href="#top">&#169; Free</a>
+			</p>
+		</footer>
+
+	</div>
+	<!-- /container -->
+
+
+</ui:composition>
